@@ -3,7 +3,7 @@ package com.example.wfcapp;
 import java.util.ArrayList;
 
 public class Session {
-    private String fitnessId;
+    private String sessionId;
     private ArrayList<String> bookedCustomers;
     private Double price;
     private Integer availableSlots;
@@ -11,8 +11,8 @@ public class Session {
     private ArrayList<String> customerReviews;
     private ArrayList<Integer> customerRatings;
 
-    public Session(String fitnessId, ArrayList<String> bookedCustomers, Double price, Integer availableSlots, Integer attendedCustomers, ArrayList<String> customerReviews, ArrayList<Integer> customerRatings) {
-        this.fitnessId = fitnessId;
+    public Session(String sessionId, ArrayList<String> bookedCustomers, Double price, Integer availableSlots, Integer attendedCustomers, ArrayList<String> customerReviews, ArrayList<Integer> customerRatings) {
+        this.sessionId = sessionId;
         this.bookedCustomers = bookedCustomers;
         this.price = price;
         this.availableSlots = availableSlots;
@@ -21,9 +21,11 @@ public class Session {
         this.customerRatings = customerRatings;
     }
 
-    public String getFitnessId() {return this.fitnessId;}
+    public String getSessionId() {return this.sessionId;}
+    public void addToBookedCustomers(String name) {bookedCustomers.add(name);}
     public ArrayList<String> getBookedCustomers() {return this.bookedCustomers;}
     public Double getPrice() {return this.price;}
+    public void setAvailableSlots() {this.availableSlots--;}
     public Integer getAvailableSlots() {return this.availableSlots;}
     public Integer getAttendedCustomers() {return this.attendedCustomers;}
     public ArrayList<String> getCustomerReviews() {return this.customerReviews;}

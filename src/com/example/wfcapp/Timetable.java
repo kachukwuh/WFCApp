@@ -1,8 +1,6 @@
 package com.example.wfcapp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class Timetable {
@@ -24,7 +22,7 @@ public class Timetable {
     public void createSessions() {
         for (int i = 1; i <= numOfWeeks; i++) {
             for (Lesson lesson : lessons) {
-                this.sessions.add(new Session(lesson.getName() + i, new ArrayList<>(), lesson.getPrice(), 5, 0, new ArrayList<>(), new ArrayList<>()));
+                this.sessions.add(new Session(lesson.getName() +"-"+ i, new ArrayList<>(), lesson.getPrice(), 5, 0, new ArrayList<>(), new ArrayList<>()));
             }
         }
     }
@@ -42,6 +40,7 @@ public class Timetable {
     }
 
     public ArrayList<Session> getSessions() {return this.sessions;}
+    public ArrayList<Lesson> getLessons() {return this.lessons;}
 
     public String toString(Lesson lesson) {
         return lesson.getName() + "," + " " + lesson.getDay() + "," + " " + lesson.getLessonTime() + " - " + "£" + lesson.getPrice();
@@ -51,7 +50,7 @@ public class Timetable {
         Timetable tt = new Timetable();
         tt.createSessions();
         for (Session session : tt.sessions) {
-            System.out.println(session.getFitnessId() + " " + session.getPrice() + " " + "total: " + (session.getPrice() * session.getAttendedCustomers()));
+            System.out.println(session.getSessionId() + " " + session.getPrice() + " " + "total: " + (session.getPrice() * session.getAttendedCustomers()));
             System.out.println();
         }
 //        tt.displayTimetable("sunday");
