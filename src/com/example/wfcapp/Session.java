@@ -25,8 +25,10 @@ public class Session {
     public void addToBookedCustomers(String name) {bookedCustomers.add(name);}
     public ArrayList<String> getBookedCustomers() {return this.bookedCustomers;}
     public Double getPrice() {return this.price;}
-    public void setAvailableSlots() {this.availableSlots--;}
+    public void reduceAvailableSlots() {this.availableSlots--;}
+    public void increaseAvailableSlots() {this.availableSlots++;}
     public Integer getAvailableSlots() {return this.availableSlots;}
+    public void increaseAttendedCustomers() {this.attendedCustomers++;}
     public Integer getAttendedCustomers() {return this.attendedCustomers;}
     public ArrayList<String> getCustomerReviews() {return this.customerReviews;}
     public ArrayList<Integer> getCustomerRatings() {return this.customerRatings;}

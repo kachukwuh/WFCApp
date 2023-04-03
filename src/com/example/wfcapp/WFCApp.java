@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class WFCApp {
 
     public static void main(String[] args) {
+        Booking bk = new Booking();
         Scanner scanner = new Scanner(System.in);
         String userInput;
         System.out.println("Hello Welcome to the Weekend Fitness Club!");
@@ -13,13 +14,21 @@ public class WFCApp {
                 1 to book a lesson
                 2 to attend a lesson
                 3 to cancel a lesson
-                4 to change a to a different lesson
+                4 to change to a different lesson
                 5 to print a monthly report
                 6 to exit""");
 
             System.out.println();
             userInput = scanner.next();
-            if (userInput.equalsIgnoreCase("6")) {
+
+
+            if (userInput.equalsIgnoreCase("1")) {
+                bk.bookCustomer();
+                System.out.println();
+            } else if (userInput.equalsIgnoreCase("2")) {
+                bk.attendLesson();
+                System.out.println();
+            }else if (userInput.equalsIgnoreCase("6")) {
                 System.out.println("Thank you for coming! Goodbye...");
                 break;
             }
