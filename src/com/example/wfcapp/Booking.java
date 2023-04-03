@@ -113,6 +113,7 @@ public class Booking {
                                 break;
                             } else {
                                 System.out.println("Write a review: ");
+                                scanner.nextLine();
                                 String userReview = scanner.nextLine();
                                 session.getCustomerReviews().add(userReview);
                                 System.out.println();
