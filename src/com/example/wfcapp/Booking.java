@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Booking {
-    private ArrayList<String> validDays;
+    private final ArrayList<String> validDays;
     private String userFitness;
     private String userWeek;
     private String userFitnessId;
-    private ArrayList<String> fitnessTypes;
-    private ArrayList<String> fitnessWeeks;
-    private ArrayList<String> validUserRatings;
+    private final ArrayList<String> fitnessTypes;
+    private final ArrayList<String> fitnessWeeks;
 
     public Booking() {
         this.validDays = new ArrayList<>(List.of("saturday", "sunday"));
@@ -19,8 +18,6 @@ public class Booking {
         this.userFitness = "";
         this.userWeek = "";
         this.userFitnessId = "";
-        this.validUserRatings = new ArrayList<>(List.of("1", "2", "3", "4", "5"));
-
     }
 
     Scanner scanner = new Scanner(System.in);
@@ -51,31 +48,35 @@ public class Booking {
                 System.out.println("Please, enter your Last Name: ");
                 cm.setLastName(scanner.next().toLowerCase());
 
-                tt.createSessions();
                 for (Session session : tt.getSessions()) {
                     if (userInput.equalsIgnoreCase(session.getSessionId())) {
                         if (session.getAvailableSlots() < 1) {
-                            System.out.println("Sorry, this session is already fully booked....");
+                            System.out.println("Sorry, This session is already fully booked....");
+                            System.out.println();
                         } else if (session.getBookedCustomers().contains(cm.getUserId())) {
-                            System.out.println("Sorry, you have already booked this session...");
+                            System.out.println("Sorry, You have already booked this session...");
+                            System.out.println();
                         } else {
                             session.addToBookedCustomers(cm.getUserId());
                             session.reduceAvailableSlots();
                             System.out.println("You have been successfully booked...");
+                            System.out.println();
                         }
                         break;
                     }
                 }
+                break;
             } else if (userInput.equalsIgnoreCase("back")) {
                 break;
             } else {
                 System.out.println("Sorry, Invalid entry...");
+                System.out.println();
             }
         }
     }
 
     public void attendLesson() {
-        while(true) {
+        while (true) {
             System.out.println("Enter 'Yoga', 'Spin', 'Zumba', 'Body-Sculpt' to attend or 'back' to go back:");
             setUserFitness(scanner.next());
             if (getFitnessTypes().contains(getUserFitness().toLowerCase())) {
@@ -97,7 +98,7 @@ public class Booking {
                             session.increaseAttendedCustomers();
                             session.increaseAvailableSlots();
                             session.getBookedCustomers().remove(cm.getUserId());
-                            System.out.println("Thank you for attending this session! Hope to you again...");
+                            System.out.println("Thank you for attending this session! Hope to see you again...");
                             System.out.println();
 
                             String userChoice;
@@ -110,6 +111,7 @@ public class Booking {
 
                             if (userChoice.equalsIgnoreCase("no")) {
                                 System.out.println("Thank you for your time, Goodbye...");
+                                System.out.println();
                                 break;
                             } else {
                                 System.out.println("Write a review: ");
@@ -128,19 +130,77 @@ public class Booking {
 
                             }
                             System.out.println("Thank you for your time, Goodbye...");
+                            System.out.println();
                         } else {
-                            System.out.println("Sorry, you are not booked for this session...");
+                            System.out.println("Sorry, You are not booked for this session...");
+                            System.out.println();
                         }
                         break;
                     }
                 }
+                break;
             } else if (getUserFitness().equalsIgnoreCase("back")) {
                 break;
             } else {
                 System.out.println("Sorry, Invalid entry...");
+                System.out.println();
             }
         }
     }
+
+    public void cancelBooking() {
+        while (true) {
+            System.out.println("Enter 'Yoga', 'Spin', 'Zumba', 'Body-Sculpt' to cancel or 'back' to go back:");
+            setUserFitness(scanner.next());
+            if (getFitnessTypes().contains(getUserFitness().toLowerCase())) {
+                do {
+                    System.out.println("Enter 1, 2, 3, 4, 5, 6, 7, 8 to select a week.");
+                    setUserWeek(scanner.next());
+                } while (!getFitnessWeeks().contains(getUserWeek()));
+
+                setUserFitnessId();
+
+                System.out.println("Please, enter your First Name: ");
+                cm.setFirstName(scanner.next().toLowerCase());
+                System.out.println("Please, enter your Last Name: ");
+                cm.setLastName(scanner.next().toLowerCase());
+
+                for (Session session : tt.getSessions()) {
+                    if (getUserFitnessId().equalsIgnoreCase(session.getSessionId())) {
+                        if (session.getBookedCustomers().contains(cm.getUserId())) {
+                            session.getBookedCustomers().remove(cm.getUserId());
+                            session.increaseAvailableSlots();
+                            System.out.println("Lesson cancelled successfully...");
+                            System.out.println();
+                            System.out.println("Do you wish to book another lesson? Enter 'Yes' or 'No:");
+                            scanner.nextLine();
+                            String userChoice = scanner.nextLine();
+                            if (userChoice.equalsIgnoreCase("no") || userChoice.equalsIgnoreCase("yes")) {
+                                if (userChoice.equalsIgnoreCase("no")) {
+                                    System.out.println("Sorry to see you go! Hope to see you again...");
+                                    System.out.println();
+                                } else {
+                                    bookCustomer();
+                                }
+                            } else {
+                                System.out.println("Sorry, Invalid entry...");
+                            }
+                        } else {
+                            System.out.println("Sorry, You are not booked for this session...");
+                            System.out.println();
+                        }
+                        break;
+                    }
+                }
+                break;
+        } else if (getUserFitness().equalsIgnoreCase("back")) {
+            break;
+        } else {
+            System.out.println("Sorry, Invalid entry...");
+            System.out.println();
+        }
+    }
+}
 
 
 
@@ -153,13 +213,11 @@ public class Booking {
     public ArrayList<String> getValidDays() {return this.validDays;}
     public void setUserFitnessId() {this.userFitnessId = getUserFitness() + "-" + getUserWeek();}
     public String getUserFitnessId() {return this.userFitnessId;}
-    public ArrayList<String> getValidUserRatings() {return this.validUserRatings;}
 
 
     public static void main(String[] args) {
         Booking bk = new Booking();
         Timetable tt = new Timetable();
-        tt.createSessions();
 
         bk.bookCustomer();
     }

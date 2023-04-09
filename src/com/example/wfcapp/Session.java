@@ -5,13 +5,14 @@ import java.util.ArrayList;
 public class Session {
     private String sessionId;
     private ArrayList<String> bookedCustomers;
-    private Double price;
-    private Integer availableSlots;
-    private Integer attendedCustomers;
+    private double price;
+    private int availableSlots;
+    private int attendedCustomers;
     private ArrayList<String> customerReviews;
     private ArrayList<Integer> customerRatings;
+    private int week;
 
-    public Session(String sessionId, ArrayList<String> bookedCustomers, Double price, Integer availableSlots, Integer attendedCustomers, ArrayList<String> customerReviews, ArrayList<Integer> customerRatings) {
+    public Session(String sessionId, ArrayList<String> bookedCustomers, double price, int availableSlots, int attendedCustomers, ArrayList<String> customerReviews, ArrayList<Integer> customerRatings, int week) {
         this.sessionId = sessionId;
         this.bookedCustomers = bookedCustomers;
         this.price = price;
@@ -19,17 +20,19 @@ public class Session {
         this.attendedCustomers = attendedCustomers;
         this.customerReviews = customerReviews;
         this.customerRatings = customerRatings;
+        this.week = week;
     }
 
     public String getSessionId() {return this.sessionId;}
     public void addToBookedCustomers(String name) {bookedCustomers.add(name);}
     public ArrayList<String> getBookedCustomers() {return this.bookedCustomers;}
-    public Double getPrice() {return this.price;}
+    public double getPrice() {return this.price;}
     public void reduceAvailableSlots() {this.availableSlots--;}
     public void increaseAvailableSlots() {this.availableSlots++;}
-    public Integer getAvailableSlots() {return this.availableSlots;}
+    public int getAvailableSlots() {return this.availableSlots;}
     public void increaseAttendedCustomers() {this.attendedCustomers++;}
-    public Integer getAttendedCustomers() {return this.attendedCustomers;}
+    public int getAttendedCustomers() {return this.attendedCustomers;}
     public ArrayList<String> getCustomerReviews() {return this.customerReviews;}
     public ArrayList<Integer> getCustomerRatings() {return this.customerRatings;}
+    public int getWeek() {return this.week;}
 }

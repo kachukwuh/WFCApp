@@ -5,8 +5,10 @@ import java.util.List;
 
 public class Timetable {
     private final int numOfWeeks;
-    private ArrayList<Lesson> lessons;
-    private ArrayList<Session> sessions;
+    private final ArrayList<Lesson> lessons;
+    private final ArrayList<Session> sessions;
+    private final ArrayList<Session> juneSessions;
+    private final ArrayList<Session> julySessions;
 
     public Timetable() {
         this.numOfWeeks = 8;
@@ -17,13 +19,17 @@ public class Timetable {
                 new Lesson("Body-Sculpt", "12:00pm - 01:00pm", "Sunday", 11.00)
                 ));
         this.sessions = new ArrayList<>();
-    }
-
-    public void createSessions() {
         for (int i = 1; i <= numOfWeeks; i++) {
             for (Lesson lesson : lessons) {
-                this.sessions.add(new Session(lesson.getName() +"-"+ i, new ArrayList<>(), lesson.getPrice(), 5, 0, new ArrayList<>(), new ArrayList<>()));
+                this.sessions.add(new Session(lesson.getName() +"-"+ i, new ArrayList<>(), lesson.getPrice(), 5, 0, new ArrayList<>(), new ArrayList<>(), i));
             }
+        }
+        this.juneSessions = new ArrayList<>();
+        this.julySessions = new ArrayList<>();
+
+        for (Session session : this.sessions) {
+            ArrayList<Integer> juneWeeks = new ArrayList<>(List.of(1,2,3,4));
+            if (juneWeeks.contains(session.getWeek())) {juneSessions.add(session);} else {julySessions.add(session);}
         }
     }
 
@@ -41,6 +47,8 @@ public class Timetable {
 
     public ArrayList<Session> getSessions() {return this.sessions;}
     public ArrayList<Lesson> getLessons() {return this.lessons;}
+    public ArrayList<Session> getJuneSessions() {return this.juneSessions;}
+    public ArrayList<Session> getJulySessions() {return this.julySessions;}
 
     public String toString(Lesson lesson) {
         return lesson.getName() + "," + " " + lesson.getDay() + "," + " " + lesson.getLessonTime() + " - " + "£" + lesson.getPrice();
@@ -48,11 +56,8 @@ public class Timetable {
 
     public static void main(String[] args) {
         Timetable tt = new Timetable();
-        tt.createSessions();
-        for (Session session : tt.sessions) {
-            System.out.println(session.getSessionId() + " " + session.getPrice() + " " + "total: " + (session.getPrice() * session.getAttendedCustomers()));
-            System.out.println();
+        for (Session june : tt.julySessions) {
+            System.out.println(june.getSessionId() + "---------" + june.getWeek());
         }
-//        tt.displayTimetable("sunday");
     }
 }

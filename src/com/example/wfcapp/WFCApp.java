@@ -13,9 +13,9 @@ public class WFCApp {
                 Please enter:\s
                 1 to book a lesson
                 2 to attend a lesson
-                3 to cancel a lesson
-                4 to change to a different lesson
-                5 to print a monthly report
+                3 to cancel/change a lesson
+                4 to print a monthly lesson report
+                5 to print a champion fitness type report
                 6 to exit""");
 
             System.out.println();
@@ -28,7 +28,13 @@ public class WFCApp {
             } else if (userInput.equalsIgnoreCase("2")) {
                 bk.attendLesson();
                 System.out.println();
-            }else if (userInput.equalsIgnoreCase("6")) {
+            } else if (userInput.equalsIgnoreCase("3")) {
+                bk.cancelBooking();
+                System.out.println();
+            } else if (userInput.equalsIgnoreCase("4")) {
+                bk.cancelBooking();
+                bk.bookCustomer();
+            } else if (userInput.equalsIgnoreCase("6")) {
                 System.out.println("Thank you for coming! Goodbye...");
                 break;
             }
