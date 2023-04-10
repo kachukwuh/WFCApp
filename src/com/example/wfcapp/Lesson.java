@@ -17,9 +17,4 @@ public class Lesson {
     public String getLessonTime() {return this.lessonTime;}
     public String getDay() {return this.day;}
     public Double getPrice() {return this.price;}
-
-
-    public static void main(String[] args) {
-        System.out.println();
-    }
 }

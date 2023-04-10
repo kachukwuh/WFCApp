@@ -125,7 +125,7 @@ public class Booking {
                                     userChoice = scanner.next();
                                 } while (!ratings.contains(userChoice));
 
-                                session.getCustomerRatings().add(Integer.parseInt(userChoice));
+                                session.getCustomerRatings().add(Float.parseFloat(userChoice));
                                 System.out.println();
 
                             }
@@ -193,14 +193,37 @@ public class Booking {
                     }
                 }
                 break;
-        } else if (getUserFitness().equalsIgnoreCase("back")) {
-            break;
-        } else {
-            System.out.println("Sorry, Invalid entry...");
-            System.out.println();
+            } else if (getUserFitness().equalsIgnoreCase("back")) {
+                break;
+            } else {
+                System.out.println("Sorry, Invalid entry...");
+                System.out.println();
+            }
         }
     }
-}
+
+    public void printMonthlyReport() {
+        while(true) {
+            System.out.println("Please enter 'June' or 'July' for a monthly report or 'back' to go back: ");
+            String userChoice = scanner.next();
+            if (userChoice.equalsIgnoreCase("june") || userChoice.equalsIgnoreCase("july")) {
+                if (userChoice.equalsIgnoreCase("june")) {
+                    for (Session session : tt.getJuneSessions()) {
+                        System.out.println("Fitness Type: " + session.getName() + " --- " + "Week: " + session.getWeek() + "\n" +
+                                "-------------------------------------\n" +
+                                "Booked Customers: " + session.getBookedCustomers().size() + " --- " + "Attended Customers: " + session.getAttendedCustomers() + "\n" +
+                                "Average rating: " + Session.getAverageRating(session.getCustomerRatings()) + " --- " + "Available Slots: " + session.getAvailableSlots() + "\n" +
+                                "Customer reviews: " + Session.printCustomerReviews(session.getCustomerReviews()));
+                        System.out.println();
+                    }
+                }
+            } else if (userChoice.equalsIgnoreCase("back")) {
+                break;
+            } else {
+                System.out.println("Sorry, Invalid entry...");
+            }
+        }
+    }
 
 
 
@@ -213,12 +236,4 @@ public class Booking {
     public ArrayList<String> getValidDays() {return this.validDays;}
     public void setUserFitnessId() {this.userFitnessId = getUserFitness() + "-" + getUserWeek();}
     public String getUserFitnessId() {return this.userFitnessId;}
-
-
-    public static void main(String[] args) {
-        Booking bk = new Booking();
-        Timetable tt = new Timetable();
-
-        bk.bookCustomer();
-    }
 }

@@ -32,8 +32,7 @@ public class WFCApp {
                 bk.cancelBooking();
                 System.out.println();
             } else if (userInput.equalsIgnoreCase("4")) {
-                bk.cancelBooking();
-                bk.bookCustomer();
+                bk.printMonthlyReport();
             } else if (userInput.equalsIgnoreCase("6")) {
                 System.out.println("Thank you for coming! Goodbye...");
                 break;

@@ -21,7 +21,7 @@ public class Timetable {
         this.sessions = new ArrayList<>();
         for (int i = 1; i <= numOfWeeks; i++) {
             for (Lesson lesson : lessons) {
-                this.sessions.add(new Session(lesson.getName() +"-"+ i, new ArrayList<>(), lesson.getPrice(), 5, 0, new ArrayList<>(), new ArrayList<>(), i));
+                this.sessions.add(new Session(lesson.getName(),lesson.getName() +"-"+ i, new ArrayList<>(), lesson.getPrice(), 5, 0, new ArrayList<>(), new ArrayList<>(), i));
             }
         }
         this.juneSessions = new ArrayList<>();
@@ -52,12 +52,5 @@ public class Timetable {
 
     public String toString(Lesson lesson) {
         return lesson.getName() + "," + " " + lesson.getDay() + "," + " " + lesson.getLessonTime() + " - " + "£" + lesson.getPrice();
-    }
-
-    public static void main(String[] args) {
-        Timetable tt = new Timetable();
-        for (Session june : tt.julySessions) {
-            System.out.println(june.getSessionId() + "---------" + june.getWeek());
-        }
     }
 }
