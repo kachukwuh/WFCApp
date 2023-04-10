@@ -209,12 +209,11 @@ public class Booking {
             if (userChoice.equalsIgnoreCase("june") || userChoice.equalsIgnoreCase("july")) {
                 if (userChoice.equalsIgnoreCase("june")) {
                     for (Session session : tt.getJuneSessions()) {
-                        System.out.println("Fitness Type: " + session.getName() + " --- " + "Week: " + session.getWeek() + "\n" +
-                                "-------------------------------------\n" +
-                                "Booked Customers: " + session.getBookedCustomers().size() + " --- " + "Attended Customers: " + session.getAttendedCustomers() + "\n" +
-                                "Average rating: " + Session.getAverageRating(session.getCustomerRatings()) + " --- " + "Available Slots: " + session.getAvailableSlots() + "\n" +
-                                "Customer reviews: " + Session.printCustomerReviews(session.getCustomerReviews()));
-                        System.out.println();
+                        reportString(session);
+                    }
+                } else {
+                    for (Session session : tt.getJulySessions()) {
+                        reportString(session);
                     }
                 }
             } else if (userChoice.equalsIgnoreCase("back")) {
@@ -223,6 +222,16 @@ public class Booking {
                 System.out.println("Sorry, Invalid entry...");
             }
         }
+    }
+
+    public void reportString(Session session) {
+        System.out.println("Fitness Type: " + session.getName() + " --- " + "Week: " + session.getWeek() + "\n" +
+                "-------------------------------------\n" +
+                "Booked Customers: " + session.getBookedCustomers().size() + " --- " + "Attended Customers: " + session.getAttendedCustomers() + "\n" +
+                "Average rating: " + Session.getAverageRating(session.getCustomerRatings()) + " --- " + "Available Slots: " + session.getAvailableSlots() + "\n" +
+                "Total income generated: £" + Session.totalIncomeGenerated(session.getPrice(), session.getAttendedCustomers()) + "\n" +
+                "Customer reviews: " + Session.printCustomerReviews(session.getCustomerReviews()));
+        System.out.println();
     }
 
 

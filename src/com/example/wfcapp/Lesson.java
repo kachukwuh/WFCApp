@@ -4,9 +4,9 @@ public class Lesson {
     private String name;
     private String lessonTime;
     private String day;
-    private Double price;
+    private Float price;
 
-    public Lesson(String name, String lessonTime, String day, Double price) {
+    public Lesson(String name, String lessonTime, String day, Float price) {
         this.name = name;
         this.lessonTime = lessonTime;
         this.day = day;
@@ -16,5 +16,5 @@ public class Lesson {
     public String getName() {return this.name;}
     public String getLessonTime() {return this.lessonTime;}
     public String getDay() {return this.day;}
-    public Double getPrice() {return this.price;}
+    public Float getPrice() {return this.price;}
 }

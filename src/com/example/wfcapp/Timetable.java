@@ -13,10 +13,10 @@ public class Timetable {
     public Timetable() {
         this.numOfWeeks = 8;
         this.lessons = new ArrayList<>(List.of(
-                new Lesson("Yoga", "09:00am - 10:00am", "Saturday", 12.00),
-                new Lesson("Spin", "12:00pm - 01:00pm", "Saturday", 11.50),
-                new Lesson("Zumba", "09:00am - 10:00am", "Sunday", 11.75),
-                new Lesson("Body-Sculpt", "12:00pm - 01:00pm", "Sunday", 11.00)
+                new Lesson("Yoga", "09:00am - 10:00am", "Saturday", 12.00f),
+                new Lesson("Spin", "12:00pm - 01:00pm", "Saturday", 11.50f),
+                new Lesson("Zumba", "09:00am - 10:00am", "Sunday", 11.75f),
+                new Lesson("Body-Sculpt", "12:00pm - 01:00pm", "Sunday", 11.00f)
                 ));
         this.sessions = new ArrayList<>();
         for (int i = 1; i <= numOfWeeks; i++) {
