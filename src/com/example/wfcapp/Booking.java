@@ -76,6 +76,33 @@ public class Booking {
 
     public void attendLesson() {
         while (true) {
+            System.out.println("Please, enter your First Name: ");
+            cm.setFirstName(scanner.next().toLowerCase());
+            System.out.println("Please, enter your Last Name: ");
+            cm.setLastName(scanner.next().toLowerCase());
+
+            ArrayList<String> customerBookedSessions = new ArrayList<>();
+            for (Session session : tt.getSessions()) {
+                if (session.getBookedCustomers().contains(cm.getUserId())) {
+                    customerBookedSessions.add("You booked a " + session.getName() + " class for week " + session.getWeek());
+                }
+            }
+
+            if (customerBookedSessions.size() < 1) {
+                System.out.println("Sorry, We found no record of any booked session for " + cm.getFirstName().toUpperCase() + " " + cm.getLastName().toUpperCase());
+                System.out.println();
+                break;
+            } else {
+                System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + cm.getFirstName().toUpperCase() + " " + cm.getLastName().toUpperCase());
+                System.out.println();
+                int counter = 1;
+                for (String customerBookedSession : customerBookedSessions) {
+                    System.out.println(counter + "." + " " + customerBookedSession);
+                    counter++;
+                }
+                System.out.println();
+            }
+
             System.out.println("Enter 'Yoga', 'Spin', 'Zumba', 'Body-Sculpt' to attend or 'back' to go back:");
             setUserFitness(scanner.next());
             if (getFitnessTypes().contains(getUserFitness().toLowerCase())) {
@@ -85,11 +112,6 @@ public class Booking {
                 } while (!getFitnessWeeks().contains(getUserWeek()));
 
                 setUserFitnessId();
-
-                System.out.println("Please, enter your First Name: ");
-                cm.setFirstName(scanner.next().toLowerCase());
-                System.out.println("Please, enter your Last Name: ");
-                cm.setLastName(scanner.next().toLowerCase());
 
                 for (Session session : tt.getSessions()) {
                     if (getUserFitnessId().equalsIgnoreCase(session.getSessionId())) {
@@ -149,6 +171,33 @@ public class Booking {
 
     public void cancelBooking() {
         while (true) {
+            System.out.println("Please, enter your First Name: ");
+            cm.setFirstName(scanner.next().toLowerCase());
+            System.out.println("Please, enter your Last Name: ");
+            cm.setLastName(scanner.next().toLowerCase());
+
+            ArrayList<String> customerBookedSessions = new ArrayList<>();
+            for (Session session : tt.getSessions()) {
+                if (session.getBookedCustomers().contains(cm.getUserId())) {
+                    customerBookedSessions.add("You booked a " + session.getName() + " class for week " + session.getWeek());
+                }
+            }
+
+            if (customerBookedSessions.size() < 1) {
+                System.out.println("Sorry, We found no record of any booked session for " + cm.getFirstName().toUpperCase() + " " + cm.getLastName().toUpperCase());
+                System.out.println();
+                break;
+            } else {
+                System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + cm.getFirstName().toUpperCase() + " " + cm.getLastName().toUpperCase());
+                System.out.println();
+                int counter = 1;
+                for (String customerBookedSession : customerBookedSessions) {
+                    System.out.println(counter + "." + " " + customerBookedSession);
+                    counter++;
+                }
+                System.out.println();
+            }
+
             System.out.println("Enter 'Yoga', 'Spin', 'Zumba', 'Body-Sculpt' to cancel or 'back' to go back:");
             setUserFitness(scanner.next());
             if (getFitnessTypes().contains(getUserFitness().toLowerCase())) {
@@ -158,11 +207,6 @@ public class Booking {
                 } while (!getFitnessWeeks().contains(getUserWeek()));
 
                 setUserFitnessId();
-
-                System.out.println("Please, enter your First Name: ");
-                cm.setFirstName(scanner.next().toLowerCase());
-                System.out.println("Please, enter your Last Name: ");
-                cm.setLastName(scanner.next().toLowerCase());
 
                 for (Session session : tt.getSessions()) {
                     if (getUserFitnessId().equalsIgnoreCase(session.getSessionId())) {
