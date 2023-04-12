@@ -1,7 +1,5 @@
 package com.example.wfcapp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Booking {
     private final ArrayList<String> validDays;
@@ -10,6 +8,7 @@ public class Booking {
     private String userFitnessId;
     private final ArrayList<String> fitnessTypes;
     private final ArrayList<String> fitnessWeeks;
+    private Map<String, Float> fitnessMap;
 
     public Booking() {
         this.validDays = new ArrayList<>(List.of("saturday", "sunday"));
@@ -220,6 +219,55 @@ public class Booking {
                 break;
             } else {
                 System.out.println("Sorry, Invalid entry...");
+            }
+        }
+    }
+
+    public void printMonthlyChampion() {
+        while(true) {
+            System.out.println("Please enter 'June' or 'July' for a monthly report or 'back' to go back: ");
+            String userChoice = scanner.next();
+            if (userChoice.equalsIgnoreCase("june") || userChoice.equalsIgnoreCase("july")) {
+                if (userChoice.equalsIgnoreCase("june")) {
+                    reportChampion(tt.getJuneSessions());
+                } else {
+                    reportChampion(tt.getJulySessions());
+                }
+            } else if (userChoice.equalsIgnoreCase("back")) {
+                break;
+            } else {
+                System.out.println("Sorry, Invalid entry...");
+            }
+
+            for (Map.Entry<String, Float> set : fitnessMap.entrySet()) {
+                System.out.println("Fitness Type: " + set.getKey() + " --- " + "Total income generated: £" + set.getValue());
+            }
+            System.out.println();
+        }
+    }
+
+    public void reportChampion(ArrayList<Session> sessions) {
+        ArrayList<String> fitnessTypes = new ArrayList<>(List.of("Yoga", "Spin", "Zumba", "Body-Sculpt"));
+        this.fitnessMap = new HashMap<>(Map.of("Yoga", 0f, "Spin", 0f, "Zumba", 0f, "Body-Sculpt", 0f));
+
+        for (Session session : sessions) {
+            for (String fitness : fitnessTypes) {
+                if (fitness.equalsIgnoreCase(session.getName())) {
+                    for (Map.Entry<String, Float> set : fitnessMap.entrySet()) {
+                        if (set.getKey().equalsIgnoreCase(fitness)) {
+                            fitnessMap.put(fitness, fitnessMap.get(fitness) + session.getAttendedCustomers());
+                        }
+                    }
+                }
+            }
+        }
+
+        for (Map.Entry<String, Float> set : fitnessMap.entrySet()) {
+            for (Session session : sessions) {
+                if (set.getKey().equalsIgnoreCase(session.getName())) {
+                    fitnessMap.put(set.getKey(), fitnessMap.get(set.getKey()) * session.getPrice());
+                    break;
+                }
             }
         }
     }

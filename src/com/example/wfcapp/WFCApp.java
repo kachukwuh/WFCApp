@@ -33,9 +33,16 @@ public class WFCApp {
                 System.out.println();
             } else if (userInput.equalsIgnoreCase("4")) {
                 bk.printMonthlyReport();
+                System.out.println();
+            } else if (userInput.equalsIgnoreCase("5")) {
+                bk.printMonthlyChampion();
+                System.out.println();
             } else if (userInput.equalsIgnoreCase("6")) {
                 System.out.println("Thank you for coming! Goodbye...");
                 break;
+            } else {
+                System.out.println("Sorry, Invalid Entry...");
+                System.out.println();
             }
         }
     }

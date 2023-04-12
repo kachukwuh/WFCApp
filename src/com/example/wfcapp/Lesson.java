@@ -1,5 +1,7 @@
 package com.example.wfcapp;
 
+import java.util.ArrayList;
+
 public class Lesson {
     private String name;
     private String lessonTime;
