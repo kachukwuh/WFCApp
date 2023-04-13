@@ -53,10 +53,4 @@ public class Timetable {
     public String toString(Lesson lesson) {
         return lesson.getName() + "," + " " + lesson.getDay() + "," + " " + lesson.getLessonTime() + " - " + "£" + lesson.getPrice();
     }
-
-    public static void main(String[] args) {
-        Timetable tt = new Timetable();
-
-    }
-
 }

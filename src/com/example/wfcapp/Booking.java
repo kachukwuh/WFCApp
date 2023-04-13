@@ -20,8 +20,8 @@ public class Booking {
     }
 
     Scanner scanner = new Scanner(System.in);
-    Timetable tt = new Timetable();
-    Customer cm = new Customer("", "");
+    Timetable timetable = new Timetable();
+    Customer customer = new Customer("", "");
 
 
     public void bookCustomer() {
@@ -29,7 +29,7 @@ public class Booking {
             System.out.println("Enter 'Saturday', 'Sunday', 'Yoga', 'Spin', 'Zumba', 'Body-Sculpt' to view timetable or 'back' to go back:");
             String userInput = scanner.next();
             if (getValidDays().contains(userInput.toLowerCase()) || getFitnessTypes().contains(userInput.toLowerCase())) {
-                tt.displayTimetable(userInput);
+                timetable.displayTimetable(userInput);
                 do {
                     System.out.println("Enter 'Yoga', 'Spin', 'Zumba' or 'Body-Sculpt' to book a lesson:");
                     setUserFitness(scanner.next());
@@ -43,22 +43,22 @@ public class Booking {
                 userInput = getUserFitness() + "-" + getUserWeek();
 
                 System.out.println("Please, enter your First Name: ");
-                cm.setFirstName(scanner.next().toLowerCase());
+                customer.setFirstName(scanner.next().toLowerCase());
                 System.out.println("Please, enter your Last Name: ");
-                cm.setLastName(scanner.next().toLowerCase());
+                customer.setLastName(scanner.next().toLowerCase());
 
-                for (Session session : tt.getSessions()) {
+                for (Session session : timetable.getSessions()) {
                     if (userInput.equalsIgnoreCase(session.getSessionId())) {
                         if (session.getAvailableSlots() < 1) {
-                            System.out.println("Sorry, This session is already fully booked....");
+                            System.out.println("Sorry, This session is fully booked.");
                             System.out.println();
-                        } else if (session.getBookedCustomers().contains(cm.getUserId())) {
-                            System.out.println("Sorry, You have already booked this session...");
+                        } else if (session.getBookedCustomers().contains(customer.getUserId())) {
+                            System.out.println("Sorry, You have already booked this session.");
                             System.out.println();
                         } else {
-                            session.addToBookedCustomers(cm.getUserId());
+                            session.addToBookedCustomers(customer.getUserId());
                             session.reduceAvailableSlots();
-                            System.out.println("You have been successfully booked...");
+                            System.out.println("Booking Successful.");
                             System.out.println();
                         }
                         break;
@@ -68,7 +68,7 @@ public class Booking {
             } else if (userInput.equalsIgnoreCase("back")) {
                 break;
             } else {
-                System.out.println("Sorry, Invalid entry...");
+                System.out.println("Sorry, Invalid entry.");
                 System.out.println();
             }
         }
@@ -77,23 +77,23 @@ public class Booking {
     public void attendLesson() {
         while (true) {
             System.out.println("Please, enter your First Name: ");
-            cm.setFirstName(scanner.next().toLowerCase());
+            customer.setFirstName(scanner.next().toLowerCase());
             System.out.println("Please, enter your Last Name: ");
-            cm.setLastName(scanner.next().toLowerCase());
+            customer.setLastName(scanner.next().toLowerCase());
 
             ArrayList<String> customerBookedSessions = new ArrayList<>();
-            for (Session session : tt.getSessions()) {
-                if (session.getBookedCustomers().contains(cm.getUserId())) {
+            for (Session session : timetable.getSessions()) {
+                if (session.getBookedCustomers().contains(customer.getUserId())) {
                     customerBookedSessions.add("You booked a " + session.getName() + " class for week " + session.getWeek());
                 }
             }
 
             if (customerBookedSessions.size() < 1) {
-                System.out.println("Sorry, We found no record of any booked session for " + cm.getFirstName().toUpperCase() + " " + cm.getLastName().toUpperCase());
+                System.out.println("Sorry, We found no record of any booked session for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
                 System.out.println();
                 break;
             } else {
-                System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + cm.getFirstName().toUpperCase() + " " + cm.getLastName().toUpperCase());
+                System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
                 System.out.println();
                 int counter = 1;
                 for (String customerBookedSession : customerBookedSessions) {
@@ -113,13 +113,13 @@ public class Booking {
 
                 setUserFitnessId();
 
-                for (Session session : tt.getSessions()) {
+                for (Session session : timetable.getSessions()) {
                     if (getUserFitnessId().equalsIgnoreCase(session.getSessionId())) {
-                        if (session.getBookedCustomers().contains(cm.getUserId())) {
+                        if (session.getBookedCustomers().contains(customer.getUserId())) {
                             session.increaseAttendedCustomers();
                             session.increaseAvailableSlots();
-                            session.getBookedCustomers().remove(cm.getUserId());
-                            System.out.println("Thank you for attending this session! Hope to see you again...");
+                            session.getBookedCustomers().remove(customer.getUserId());
+                            System.out.println("Thank you for attending this session! Hope to see you again.");
                             System.out.println();
 
                             String userChoice;
@@ -131,7 +131,7 @@ public class Booking {
                             } while (!choices.contains(userChoice.toLowerCase()));
 
                             if (userChoice.equalsIgnoreCase("no")) {
-                                System.out.println("Thank you for your time, Goodbye...");
+                                System.out.println("Thank you for your time, Goodbye.");
                                 System.out.println();
                                 break;
                             } else {
@@ -150,10 +150,10 @@ public class Booking {
                                 System.out.println();
 
                             }
-                            System.out.println("Thank you for your time, Goodbye...");
+                            System.out.println("Thank you for your time, Goodbye.");
                             System.out.println();
                         } else {
-                            System.out.println("Sorry, You are not booked for this session...");
+                            System.out.println("Sorry, You are not booked for this session.");
                             System.out.println();
                         }
                         break;
@@ -163,7 +163,7 @@ public class Booking {
             } else if (getUserFitness().equalsIgnoreCase("back")) {
                 break;
             } else {
-                System.out.println("Sorry, Invalid entry...");
+                System.out.println("Sorry, Invalid entry.");
                 System.out.println();
             }
         }
@@ -172,23 +172,23 @@ public class Booking {
     public void cancelBooking() {
         while (true) {
             System.out.println("Please, enter your First Name: ");
-            cm.setFirstName(scanner.next().toLowerCase());
+            customer.setFirstName(scanner.next().toLowerCase());
             System.out.println("Please, enter your Last Name: ");
-            cm.setLastName(scanner.next().toLowerCase());
+            customer.setLastName(scanner.next().toLowerCase());
 
             ArrayList<String> customerBookedSessions = new ArrayList<>();
-            for (Session session : tt.getSessions()) {
-                if (session.getBookedCustomers().contains(cm.getUserId())) {
+            for (Session session : timetable.getSessions()) {
+                if (session.getBookedCustomers().contains(customer.getUserId())) {
                     customerBookedSessions.add("You booked a " + session.getName() + " class for week " + session.getWeek());
                 }
             }
 
             if (customerBookedSessions.size() < 1) {
-                System.out.println("Sorry, We found no record of any booked session for " + cm.getFirstName().toUpperCase() + " " + cm.getLastName().toUpperCase());
+                System.out.println("Sorry, We found no record of any booked session for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
                 System.out.println();
                 break;
             } else {
-                System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + cm.getFirstName().toUpperCase() + " " + cm.getLastName().toUpperCase());
+                System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
                 System.out.println();
                 int counter = 1;
                 for (String customerBookedSession : customerBookedSessions) {
@@ -208,28 +208,28 @@ public class Booking {
 
                 setUserFitnessId();
 
-                for (Session session : tt.getSessions()) {
+                for (Session session : timetable.getSessions()) {
                     if (getUserFitnessId().equalsIgnoreCase(session.getSessionId())) {
-                        if (session.getBookedCustomers().contains(cm.getUserId())) {
-                            session.getBookedCustomers().remove(cm.getUserId());
+                        if (session.getBookedCustomers().contains(customer.getUserId())) {
+                            session.getBookedCustomers().remove(customer.getUserId());
                             session.increaseAvailableSlots();
-                            System.out.println("Lesson cancelled successfully...");
+                            System.out.println("Booking cancelled successfully.");
                             System.out.println();
                             System.out.println("Do you wish to book another lesson? Enter 'Yes' or 'No:");
                             scanner.nextLine();
                             String userChoice = scanner.nextLine();
                             if (userChoice.equalsIgnoreCase("no") || userChoice.equalsIgnoreCase("yes")) {
                                 if (userChoice.equalsIgnoreCase("no")) {
-                                    System.out.println("Sorry to see you go! Hope to see you again...");
+                                    System.out.println("Sorry to see you go! Come back soon.");
                                     System.out.println();
                                 } else {
                                     bookCustomer();
                                 }
                             } else {
-                                System.out.println("Sorry, Invalid entry...");
+                                System.out.println("Sorry, Invalid entry.");
                             }
                         } else {
-                            System.out.println("Sorry, You are not booked for this session...");
+                            System.out.println("Sorry, You are not booked for this session.");
                             System.out.println();
                         }
                         break;
@@ -239,7 +239,7 @@ public class Booking {
             } else if (getUserFitness().equalsIgnoreCase("back")) {
                 break;
             } else {
-                System.out.println("Sorry, Invalid entry...");
+                System.out.println("Sorry, Invalid entry.");
                 System.out.println();
             }
         }
@@ -251,18 +251,18 @@ public class Booking {
             String userChoice = scanner.next();
             if (userChoice.equalsIgnoreCase("june") || userChoice.equalsIgnoreCase("july")) {
                 if (userChoice.equalsIgnoreCase("june")) {
-                    for (Session session : tt.getJuneSessions()) {
+                    for (Session session : timetable.getJuneSessions()) {
                         reportString(session);
                     }
                 } else {
-                    for (Session session : tt.getJulySessions()) {
+                    for (Session session : timetable.getJulySessions()) {
                         reportString(session);
                     }
                 }
             } else if (userChoice.equalsIgnoreCase("back")) {
                 break;
             } else {
-                System.out.println("Sorry, Invalid entry...");
+                System.out.println("Sorry, Invalid entry.");
             }
         }
     }
@@ -273,14 +273,14 @@ public class Booking {
             String userChoice = scanner.next();
             if (userChoice.equalsIgnoreCase("june") || userChoice.equalsIgnoreCase("july")) {
                 if (userChoice.equalsIgnoreCase("june")) {
-                    reportChampion(tt.getJuneSessions());
+                    reportChampion(timetable.getJuneSessions());
                 } else {
-                    reportChampion(tt.getJulySessions());
+                    reportChampion(timetable.getJulySessions());
                 }
             } else if (userChoice.equalsIgnoreCase("back")) {
                 break;
             } else {
-                System.out.println("Sorry, Invalid entry...");
+                System.out.println("Sorry, Invalid entry.");
             }
 
             for (Map.Entry<String, Float> set : fitnessMap.entrySet()) {
