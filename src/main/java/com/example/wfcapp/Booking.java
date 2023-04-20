@@ -76,32 +76,7 @@ public class Booking {
 
     public void attendLesson() {
         while (true) {
-            System.out.println("Please, enter your First Name: ");
-            customer.setFirstName(scanner.next().toLowerCase());
-            System.out.println("Please, enter your Last Name: ");
-            customer.setLastName(scanner.next().toLowerCase());
-
-            ArrayList<String> customerBookedSessions = new ArrayList<>();
-            for (Session session : timetable.getSessions()) {
-                if (session.getBookedCustomers().contains(customer.getUserId())) {
-                    customerBookedSessions.add("You booked a " + session.getName() + " class for week " + session.getWeek());
-                }
-            }
-
-            if (customerBookedSessions.size() < 1) {
-                System.out.println("Sorry, We found no record of any booked session for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
-                System.out.println();
-                break;
-            } else {
-                System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
-                System.out.println();
-                int counter = 1;
-                for (String customerBookedSession : customerBookedSessions) {
-                    System.out.println(counter + "." + " " + customerBookedSession);
-                    counter++;
-                }
-                System.out.println();
-            }
+            if (isBooked()) break;
 
             System.out.println("Enter 'Yoga', 'Spin', 'Zumba', 'Body-Sculpt' to attend or 'back' to go back:");
             setUserFitness(scanner.next());
@@ -169,34 +144,39 @@ public class Booking {
         }
     }
 
+    private boolean isBooked() {
+        System.out.println("Please, enter your First Name: ");
+        customer.setFirstName(scanner.next().toLowerCase());
+        System.out.println("Please, enter your Last Name: ");
+        customer.setLastName(scanner.next().toLowerCase());
+
+        ArrayList<String> customerBookedSessions = new ArrayList<>();
+        for (Session session : timetable.getSessions()) {
+            if (session.getBookedCustomers().contains(customer.getUserId())) {
+                customerBookedSessions.add("You booked a " + session.getName() + " class for week " + session.getWeek());
+            }
+        }
+
+        if (customerBookedSessions.size() < 1) {
+            System.out.println("Sorry, We found no record of any booked session for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
+            System.out.println();
+            return true;
+        } else {
+            System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
+            System.out.println();
+            int counter = 1;
+            for (String customerBookedSession : customerBookedSessions) {
+                System.out.println(counter + "." + " " + customerBookedSession);
+                counter++;
+            }
+            System.out.println();
+        }
+        return false;
+    }
+
     public void cancelBooking() {
         while (true) {
-            System.out.println("Please, enter your First Name: ");
-            customer.setFirstName(scanner.next().toLowerCase());
-            System.out.println("Please, enter your Last Name: ");
-            customer.setLastName(scanner.next().toLowerCase());
-
-            ArrayList<String> customerBookedSessions = new ArrayList<>();
-            for (Session session : timetable.getSessions()) {
-                if (session.getBookedCustomers().contains(customer.getUserId())) {
-                    customerBookedSessions.add("You booked a " + session.getName() + " class for week " + session.getWeek());
-                }
-            }
-
-            if (customerBookedSessions.size() < 1) {
-                System.out.println("Sorry, We found no record of any booked session for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
-                System.out.println();
-                break;
-            } else {
-                System.out.println("We found " + customerBookedSessions.size() + " booked session(s) for " + customer.getFirstName().toUpperCase() + " " + customer.getLastName().toUpperCase());
-                System.out.println();
-                int counter = 1;
-                for (String customerBookedSession : customerBookedSessions) {
-                    System.out.println(counter + "." + " " + customerBookedSession);
-                    counter++;
-                }
-                System.out.println();
-            }
+            if (isBooked()) break;
 
             System.out.println("Enter 'Yoga', 'Spin', 'Zumba', 'Body-Sculpt' to cancel or 'back' to go back:");
             setUserFitness(scanner.next());
@@ -313,6 +293,23 @@ public class Booking {
                     break;
                 }
             }
+        }
+
+        float counter = 0f;
+        String name = "";
+        for (Map.Entry<String, Float> set : fitnessMap.entrySet()) {
+            if (set.getValue() > counter) {
+                counter = set.getValue();
+                name = set.getKey();
+            }
+        }
+
+        if (counter <= 0) {
+            System.out.println("Sorry, We have no monthly champion for the month");
+            System.out.println();
+        } else {
+            System.out.println(name + " is our monthly fitness champion with a total generated income of £" + counter);
+            System.out.println();
         }
     }
 

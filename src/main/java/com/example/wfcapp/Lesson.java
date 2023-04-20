@@ -1,10 +1,10 @@
 package com.example.wfcapp;
 
 public class Lesson {
-    private String name;
-    private String lessonTime;
-    private String day;
-    private Float price;
+    private final String name;
+    private final String lessonTime;
+    private final String day;
+    private final Float price;
 
     public Lesson(String name, String lessonTime, String day, Float price) {
         this.name = name;

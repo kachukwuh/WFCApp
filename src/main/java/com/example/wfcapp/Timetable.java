@@ -35,10 +35,19 @@ public class Timetable {
 
     public void displayTimetable(String userInput) {
         for (int i = 1; i <= numOfWeeks; i++) {
-            System.out.println("------ Week " + i + " ------");
-            for (Lesson lesson : lessons) {
-                if (userInput.equalsIgnoreCase(lesson.getName()) || userInput.equalsIgnoreCase(lesson.getDay())) {
-                    System.out.println(toString(lesson));
+            if (i <= 4) {
+                System.out.println("------ Week " + i + " ------ Month: JUNE ------");
+                for (Lesson lesson : lessons) {
+                    if (userInput.equalsIgnoreCase(lesson.getName()) || userInput.equalsIgnoreCase(lesson.getDay())) {
+                        System.out.println(toString(lesson));
+                    }
+                }
+            } else {
+                System.out.println("------ Week " + i + " ------ Month: JULY ------");
+                for (Lesson lesson : lessons) {
+                    if (userInput.equalsIgnoreCase(lesson.getName()) || userInput.equalsIgnoreCase(lesson.getDay())) {
+                        System.out.println(toString(lesson));
+                    }
                 }
             }
             System.out.println();
@@ -46,7 +55,6 @@ public class Timetable {
     }
 
     public ArrayList<Session> getSessions() {return this.sessions;}
-    public ArrayList<Lesson> getLessons() {return this.lessons;}
     public ArrayList<Session> getJuneSessions() {return this.juneSessions;}
     public ArrayList<Session> getJulySessions() {return this.julySessions;}
 

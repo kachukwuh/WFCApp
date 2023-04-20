@@ -57,13 +57,25 @@ public class Session {
 
     public String getName() {return this.name;}
     public String getSessionId() {return this.sessionId;}
-    public void addToBookedCustomers(String name) {bookedCustomers.add(name);}
+    public String addToBookedCustomers(String name) {
+        bookedCustomers.add(name);
+        return name;
+    }
     public ArrayList<String> getBookedCustomers() {return this.bookedCustomers;}
     public float getPrice() {return this.price;}
-    public void reduceAvailableSlots() {this.availableSlots--;}
-    public void increaseAvailableSlots() {this.availableSlots++;}
+    public int reduceAvailableSlots() {
+        this.availableSlots--;
+        return this.availableSlots;
+    }
+    public int increaseAvailableSlots() {
+        this.availableSlots++;
+        return this.availableSlots;
+    }
     public int getAvailableSlots() {return this.availableSlots;}
-    public void increaseAttendedCustomers() {this.attendedCustomers++;}
+    public int increaseAttendedCustomers() {
+        this.attendedCustomers++;
+        return this.attendedCustomers;
+    }
     public int getAttendedCustomers() {return this.attendedCustomers;}
     public ArrayList<String> getCustomerReviews() {return this.customerReviews;}
     public ArrayList<Float> getCustomerRatings() {return this.customerRatings;}
